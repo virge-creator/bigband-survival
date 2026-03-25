@@ -1,0 +1,102 @@
+---
+import Layout from '../../layouts/Layout.astro';
+const base = import.meta.env.BASE_URL;
+
+// Get all blog posts using import.meta.glob (Astro 4+ style)
+const postFiles = import.meta.glob('./*.md', { eager: true });
+const posts = Object.values(postFiles) as any[];
+const sortedPosts = posts.sort((a, b) => 
+  new Date(b.frontmatter.date).getTime() - new Date(a.frontmatter.date).getTime()
+);
+---
+
+<Layout title="Blog" description="Nieuws en updates over jazz, pop en muziek in Limburg. Plus nieuws van Bigband Survival.">
+  
+  <!-- Hero -->
+  <section class="hero py-20">
+    <div class="max-w-6xl mx-auto px-6 relative z-10">
+      <h1 class="text-4xl sm:text-5xl font-bold text-white mb-6" style="font-family: 'Playfair Display', serif;">
+        Blog
+      </h1>
+      <p class="text-xl text-white/80 max-w-2xl">
+        Nieuws over jazz, pop en muziek in Limburg. Plus updates van Bigband Survival.
+      </p>
+    </div>
+  </section>
+
+  <!-- Blog Posts -->
+  <section class="py-20">
+    <div class="max-w-6xl mx-auto px-6">
+      {sortedPosts.length > 0 ? (
+        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+          {sortedPosts.map((post) => {
+            const slug = post.file?.split('/').pop()?.replace('.md', '') || post.url?.split('/').pop();
+            return (
+              <article class="blog-card">
+                <div class="p-6">
+                  <div class="flex items-center gap-3 text-sm text-gray-500 mb-3">
+                    <time datetime={post.frontmatter.date}>
+                      {new Date(post.frontmatter.date).toLocaleDateString('nl-NL', { 
+                        year: 'numeric', 
+                        month: 'short', 
+                        day: 'numeric' 
+                      })}
+                    </time>
+                    {post.frontmatter.tags && post.frontmatter.tags[0] && (
+                      <>
+                        <span class="text-brass">•</span>
+                        <span class="text-brass">{post.frontmatter.tags[0]}</span>
+                      </>
+                    )}
+                  </div>
+                  <h2 class="text-xl font-bold mb-3 hover:text-brass transition-colors">
+                    <a href={`${base}blog/${slug}/`}>
+                      {post.frontmatter.title}
+                    </a>
+                  </h2>
+                  <p class="text-gray-600 text-sm mb-4 line-clamp-3">
+                    {post.frontmatter.description}
+                  </p>
+                  <a 
+                    href={`${base}blog/${slug}/`}
+                    class="text-brass font-medium text-sm hover:underline"
+                  >
+                    Lees meer →
+                  </a>
+                </div>
+              </article>
+            );
+          })}
+        </div>
+      ) : (
+        <div class="text-center py-12">
+          <p class="text-2xl mb-4">🎵</p>
+          <p class="text-gray-600">Nog geen berichten. Kom snel terug!</p>
+        </div>
+      )}
+    </div>
+  </section>
+
+  <!-- Newsletter CTA -->
+  <section class="section-cream py-16">
+    <div class="max-w-4xl mx-auto px-6 text-center">
+      <h2 class="text-2xl font-bold mb-4">Blijf op de hoogte</h2>
+      <p class="text-gray-600 mb-6">
+        Wekelijks nieuws over jazz en pop in Limburg, plus updates van Bigband Survival.
+      </p>
+      <a href={`${base}contact/`} class="btn-secondary">
+        Neem contact op voor de nieuwsbrief
+      </a>
+    </div>
+  </section>
+
+</Layout>
+
+<style>
+  .line-clamp-3 {
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+</style>
