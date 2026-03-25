@@ -1,6 +1,7 @@
 ---
 import Layout from '../layouts/Layout.astro';
-const base = import.meta.env.BASE_URL;
+const baseRaw = import.meta.env.BASE_URL;
+const base = baseRaw.endsWith('/') ? baseRaw : baseRaw + '/';
 ---
 
 <Layout title="Home" description="Bigband Survival - Het projectorkest waar muziekschoolleerlingen de bigband in al zijn vormen ontdekken. Meespelen, improviseren, groeien.">

@@ -1,6 +1,7 @@
 ---
 import Layout from '../layouts/Layout.astro';
-const base = import.meta.env.BASE_URL;
+const baseRaw = import.meta.env.BASE_URL;
+const base = baseRaw.endsWith('/') ? baseRaw : baseRaw + '/';
 ---
 
 <Layout title="Meespelen" description="Wil je meespelen bij Bigband Survival? Ontdek hoe je kunt meedoen aan ons projectorkest.">

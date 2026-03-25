@@ -1,6 +1,7 @@
 ---
 import Layout from '../layouts/Layout.astro';
-const base = import.meta.env.BASE_URL;
+const baseRaw = import.meta.env.BASE_URL;
+const base = baseRaw.endsWith('/') ? baseRaw : baseRaw + '/';
 ---
 
 <Layout title="Workshops" description="Improvisatie workshops en masterclasses bij Bigband Survival. Leer improviseren in een ontspannen setting.">
