@@ -6,7 +6,7 @@ date: 2026-03-31
 tags: ["Muziekonderwijs", "Samenspelen", "Tips"]
 ---
 
-# Waarom samenspelen belangrijker is dan alleen oefenen
+
 
 Je hebt vast weleens gehoord: "Oefenen, oefenen, oefenen!" En ja, thuis je stukken instuderen is belangrijk. Maar wist je dat samenspelen in een band of orkest je nóg sneller vooruit helpt? Bij Bigband Survival zien we het elke week gebeuren.
 
@@ -18,9 +18,9 @@ Wanneer je thuis oefent, hoor je alleen jezelf. In een ensemble moet je constant
 
 Een metronoom is handig, maar niets vervangt het spelen met echte mensen. In een bigband leer je:
 
-- **Swing feel** — dat typische "lopende" gevoel dat je niet uit een boek leert
-- **Dynamiek** — samen zacht én samen luid spelen
-- **Cues herkennen** — weten wanneer jij aan de beurt bent
+- **Swing feel**: dat typische "lopende" gevoel dat je niet uit een boek leert
+- **Dynamiek**: samen zacht én samen luid spelen
+- **Cues herkennen**: weten wanneer jij aan de beurt bent
 
 ## Fouten maken mag (en moet!)
 
@@ -32,11 +32,11 @@ Eerlijk is eerlijk: alleen oefenen is niet altijd leuk. Maar als je weet dat je 
 
 ## Podiumervaring
 
-Bij Bigband Survival treden we ook op. Die spanning voor een concert, de kick daarna — dat is iets wat je alleen ervaart door het te doen. En hoe vaker je optreedt, hoe relaxter het wordt.
+Bij Bigband Survival treden we ook op. Die spanning voor een concert, de kick daarna: dat is iets wat je alleen ervaart door het te doen. En hoe vaker je optreedt, hoe relaxter het wordt.
 
 ## Kom meespelen!
 
-Ben je muziekschoolleerling in Midden-Limburg en wil je ervaren hoe leuk samenspelen is? Bigband Survival is er voor jou. We repeteren wekelijks en spelen pop, funk en jazz — nummers die je kent en die lekker klinken.
+Ben je muziekschoolleerling in Midden-Limburg en wil je ervaren hoe leuk samenspelen is? Bigband Survival is er voor jou. We repeteren wekelijks en spelen pop, funk en jazz, nummers die je kent en die lekker klinken.
 
 **Interesse? Neem contact op en kom een keer vrijblijvend meespelen!**
 

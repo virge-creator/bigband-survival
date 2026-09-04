@@ -1,0 +1,357 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { SITE, INSTRUMENT_GROUPS } from '../site.config';
+
+const baseRaw = import.meta.env.BASE_URL;
+const base = baseRaw.endsWith('/') ? baseRaw : baseRaw + '/';
+
+const title = 'Doorstart 2026: meld je aan';
+const description =
+  'Bigband Survival gaat in het derde kwartaal van 2026 weer van start. Oud-leden en nieuwe muzikanten uit Midden-Limburg: meld je aan en sluit je aan bij onze WhatsApp-groep en Discord.';
+
+const faqLd = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: [
+    {
+      '@type': 'Question',
+      name: 'Wanneer start Bigband Survival weer?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'We willen het projectorkest in het derde kwartaal van 2026 weer draaiend hebben. Zodra de bezetting rond is, plannen we de eerste repetitie.',
+      },
+    },
+    {
+      '@type': 'Question',
+      name: 'Ik speelde vroeger mee. Moet ik me opnieuw aanmelden?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'Ja graag. We benaderen oud-leden persoonlijk, maar via het formulier weten we zeker dat we je actuele gegevens en instrument hebben.',
+      },
+    },
+    {
+      '@type': 'Question',
+      name: 'Hoe blijf ik op de hoogte?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'Er komt een WhatsApp-groep voor snelle berichten en een Discord-server voor bladmuziek, opnames en planning. Na je aanmelding ontvang je een uitnodiging.',
+      },
+    },
+  ],
+};
+
+const eventLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Event',
+  name: 'Doorstart Bigband Survival 2026',
+  description,
+  startDate: '2026-09',
+  eventStatus: 'https://schema.org/EventScheduled',
+  eventAttendanceMode: 'https://schema.org/OfflineEventAttendanceMode',
+  location: {
+    '@type': 'Place',
+    name: 'Repetitielocatie Bigband Survival',
+    address: {
+      '@type': 'PostalAddress',
+      streetAddress: SITE.address.street,
+      addressLocality: SITE.address.city,
+      addressRegion: SITE.address.region,
+      addressCountry: SITE.address.country,
+    },
+  },
+  organizer: { '@type': 'Organization', name: SITE.name, url: SITE.url },
+  url: new URL('aanmelden/', SITE.url).href,
+};
+
+const formAction = `https://formspree.io/f/${SITE.forms.aanmelden}`;
+---
+
+<Layout title={title} description={description} jsonLd={[faqLd, eventLd]}>
+
+  <!-- Hero -->
+  <section class="hero py-20">
+    <div class="max-w-6xl mx-auto px-6 relative z-10">
+      <p class="text-brass-light font-medium tracking-wider uppercase mb-4 text-sm">🎺 Nieuws voor leden en muzikanten</p>
+      <h1 class="text-4xl sm:text-5xl font-bold text-white mb-6 font-display">
+        Bigband Survival gaat weer van start
+      </h1>
+      <p class="text-xl text-white/80 max-w-2xl">
+        We willen het projectorkest in het <strong class="text-white">derde kwartaal van 2026</strong> weer
+        draaiend hebben. Speelde je eerder mee, of wil je nu instappen? Meld je hieronder aan.
+      </p>
+      <a href="#aanmeldformulier" class="btn-primary inline-block mt-8">Direct aanmelden ↓</a>
+    </div>
+  </section>
+
+  <!-- Plan -->
+  <section class="py-20">
+    <div class="max-w-6xl mx-auto px-6">
+      <div class="text-center mb-16">
+        <h2 class="text-3xl sm:text-4xl font-bold mb-4">Het plan</h2>
+        <p class="text-lg text-gray-600 max-w-2xl mx-auto">
+          Zo gaan we de doorstart aanpakken. Kort en duidelijk, zodat iedereen weet waar we staan.
+        </p>
+      </div>
+
+      <div class="grid md:grid-cols-3 gap-8">
+        <div class="card p-8">
+          <div class="w-12 h-12 rounded-full bg-brass text-white flex items-center justify-center text-xl font-bold mb-4">1</div>
+          <h3 class="text-xl font-bold mb-3">Oud-leden en muzikanten benaderen</h3>
+          <p class="text-gray-600">
+            We nemen persoonlijk contact op met de oud-bandleden. Daarnaast benaderen we andere
+            muzikanten uit de regio om de bezetting compleet te maken.
+          </p>
+        </div>
+
+        <div class="card p-8">
+          <div class="w-12 h-12 rounded-full bg-coral text-white flex items-center justify-center text-xl font-bold mb-4">2</div>
+          <h3 class="text-xl font-bold mb-3">WhatsApp-groep en Discord</h3>
+          <p class="text-gray-600">
+            Er komt een WhatsApp-groep voor snelle berichten en een Discord-server voor bladmuziek,
+            opnames en de planning. Na je aanmelding krijg je een uitnodiging.
+          </p>
+        </div>
+
+        <div class="card p-8">
+          <div class="w-12 h-12 rounded-full bg-midnight text-white flex items-center justify-center text-xl font-bold mb-4">3</div>
+          <h3 class="text-xl font-bold mb-3">Draaien in Q3 2026</h3>
+          <p class="text-gray-600">
+            Zodra de bezetting rond is, plannen we de eerste repetitie. Doel: in het derde kwartaal
+            van 2026 weer samen spelen, met een optreden als afsluiting van het project.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Form -->
+  <section id="aanmeldformulier" class="section-cream py-20 scroll-mt-24">
+    <div class="max-w-6xl mx-auto px-6">
+      <div class="grid md:grid-cols-5 gap-12">
+
+        <div class="md:col-span-3">
+          <h2 class="text-3xl font-bold mb-2">Aanmelden</h2>
+          <p class="text-gray-600 mb-8">
+            Vul je gegevens in. We gebruiken je telefoonnummer alleen om je toe te voegen aan de WhatsApp-groep.
+          </p>
+
+          <form
+            id="signup-form"
+            class="space-y-6 bg-white rounded-2xl p-8 card"
+            action={formAction}
+            method="POST"
+            data-form-configured={SITE.forms.aanmelden !== 'YOUR_FORM_ID' ? 'true' : 'false'}
+          >
+            <input type="hidden" name="_subject" value="Aanmelding doorstart Bigband Survival 2026" />
+            <input type="text" name="_gotcha" tabindex="-1" autocomplete="off" class="hidden" aria-hidden="true" />
+
+            <div>
+              <label for="name" class="block text-sm font-medium mb-2">Naam *</label>
+              <input
+                type="text"
+                id="name"
+                name="name"
+                required
+                autocomplete="name"
+                class="w-full px-4 py-3 rounded-lg border border-gray-200 focus:border-brass focus:ring-2 focus:ring-brass/20 outline-none transition-colors"
+                placeholder="Je voor- en achternaam"
+              >
+            </div>
+
+            <div class="grid sm:grid-cols-2 gap-6">
+              <div>
+                <label for="email" class="block text-sm font-medium mb-2">E-mail *</label>
+                <input
+                  type="email"
+                  id="email"
+                  name="email"
+                  required
+                  autocomplete="email"
+                  class="w-full px-4 py-3 rounded-lg border border-gray-200 focus:border-brass focus:ring-2 focus:ring-brass/20 outline-none transition-colors"
+                  placeholder="je@email.nl"
+                >
+              </div>
+
+              <div>
+                <label for="phone" class="block text-sm font-medium mb-2">Telefoon (WhatsApp) *</label>
+                <input
+                  type="tel"
+                  id="phone"
+                  name="phone"
+                  required
+                  autocomplete="tel"
+                  inputmode="tel"
+                  class="w-full px-4 py-3 rounded-lg border border-gray-200 focus:border-brass focus:ring-2 focus:ring-brass/20 outline-none transition-colors"
+                  placeholder="06 12345678"
+                >
+              </div>
+            </div>
+
+            <div>
+              <label for="instrument" class="block text-sm font-medium mb-2">Instrument *</label>
+              <select
+                id="instrument"
+                name="instrument"
+                required
+                class="w-full px-4 py-3 rounded-lg border border-gray-200 bg-white focus:border-brass focus:ring-2 focus:ring-brass/20 outline-none transition-colors"
+              >
+                <option value="">Kies je instrument</option>
+                {INSTRUMENT_GROUPS.map((group) => (
+                  <optgroup label={group.label}>
+                    {group.options.map(([value, label]) => (
+                      <option value={value}>{label}</option>
+                    ))}
+                  </optgroup>
+                ))}
+              </select>
+            </div>
+
+            <fieldset>
+              <legend class="block text-sm font-medium mb-2">Ik wil graag</legend>
+              <div class="flex flex-col sm:flex-row gap-4">
+                <label class="flex items-center gap-2 text-sm text-gray-700">
+                  <input type="checkbox" name="whatsapp" value="ja" checked class="accent-brass w-4 h-4">
+                  In de WhatsApp-groep
+                </label>
+                <label class="flex items-center gap-2 text-sm text-gray-700">
+                  <input type="checkbox" name="discord" value="ja" checked class="accent-brass w-4 h-4">
+                  Een Discord-uitnodiging
+                </label>
+              </div>
+            </fieldset>
+
+            <button type="submit" class="btn-primary w-full">
+              Meld me aan →
+            </button>
+
+            <p id="form-status" class="text-sm text-gray-600 hidden" role="status" aria-live="polite"></p>
+            <p class="text-xs text-gray-500">
+              We gebruiken je gegevens alleen voor Bigband Survival en delen ze niet met anderen.
+            </p>
+          </form>
+        </div>
+
+        <aside class="md:col-span-2 space-y-6">
+          <div class="bg-white rounded-xl p-6 card">
+            <h3 class="font-bold mb-2 flex items-center gap-2"><span class="text-xl">📅</span> Wanneer?</h3>
+            <p class="text-gray-600">
+              Doel: draaien in het derde kwartaal van 2026. Repetities zijn zoals altijd op zaterdagochtend
+              van 10:00 tot 12:30.
+            </p>
+          </div>
+
+          <div class="bg-white rounded-xl p-6 card">
+            <h3 class="font-bold mb-2 flex items-center gap-2"><span class="text-xl">📍</span> Waar?</h3>
+            <p class="text-gray-600">
+              {SITE.address.street}<br>
+              {SITE.address.city}
+            </p>
+          </div>
+
+          <div class="bg-white rounded-xl p-6 card">
+            <h3 class="font-bold mb-2 flex items-center gap-2"><span class="text-xl">💬</span> Community</h3>
+            <ul class="text-gray-600 space-y-2">
+              <li>
+                {SITE.community.whatsapp
+                  ? <a href={SITE.community.whatsapp} class="text-brass hover:underline" rel="noopener" target="_blank">WhatsApp-groep</a>
+                  : <span>WhatsApp-groep: uitnodiging volgt na aanmelding</span>}
+              </li>
+              <li>
+                {SITE.community.discord
+                  ? <a href={SITE.community.discord} class="text-brass hover:underline" rel="noopener" target="_blank">Discord-server</a>
+                  : <span>Discord-server: uitnodiging volgt na aanmelding</span>}
+              </li>
+            </ul>
+          </div>
+
+          <div class="p-6 bg-midnight text-white rounded-xl">
+            <h3 class="font-bold mb-3">Liever mailen?</h3>
+            <p class="text-white/80 text-sm">
+              Stuur je naam, telefoonnummer en instrument naar
+              <a href={`mailto:${SITE.email}`} class="text-brass-light hover:underline">{SITE.email}</a>.
+            </p>
+          </div>
+        </aside>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="py-20">
+    <div class="max-w-4xl mx-auto px-6">
+      <h2 class="text-3xl font-bold mb-12 text-center">Veelgestelde vragen</h2>
+      <div class="space-y-6">
+        <div class="bg-white rounded-xl p-6 card">
+          <h3 class="font-bold mb-2">Wanneer start Bigband Survival weer?</h3>
+          <p class="text-gray-600">
+            We willen het projectorkest in het derde kwartaal van 2026 weer draaiend hebben.
+            Zodra de bezetting rond is, plannen we de eerste repetitie.
+          </p>
+        </div>
+        <div class="bg-white rounded-xl p-6 card">
+          <h3 class="font-bold mb-2">Ik speelde vroeger mee. Moet ik me opnieuw aanmelden?</h3>
+          <p class="text-gray-600">
+            Ja graag. We benaderen oud-leden persoonlijk, maar via het formulier weten we zeker dat we
+            je actuele gegevens en instrument hebben.
+          </p>
+        </div>
+        <div class="bg-white rounded-xl p-6 card">
+          <h3 class="font-bold mb-2">Hoe blijf ik op de hoogte?</h3>
+          <p class="text-gray-600">
+            Er komt een WhatsApp-groep voor snelle berichten en een Discord-server voor bladmuziek,
+            opnames en planning. Na je aanmelding ontvang je een uitnodiging.
+          </p>
+        </div>
+        <div class="bg-white rounded-xl p-6 card">
+          <h3 class="font-bold mb-2">Ik ben nieuw. Hoe goed moet ik zijn?</h3>
+          <p class="text-gray-600">
+            Minimaal 1 tot 2 jaar les en noten kunnen lezen is genoeg. Lees meer op de pagina
+            <a href={`${base}meespelen/`} class="text-brass hover:underline">Meespelen</a>.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <script>
+    const form = document.getElementById('signup-form') as HTMLFormElement | null;
+    const status = document.getElementById('form-status');
+
+    function show(message: string, ok: boolean) {
+      if (!status) return;
+      status.textContent = message;
+      status.classList.remove('hidden', 'text-green-700', 'text-red-700');
+      status.classList.add(ok ? 'text-green-700' : 'text-red-700');
+    }
+
+    form?.addEventListener('submit', async (event) => {
+      if (form.dataset.formConfigured !== 'true') {
+        event.preventDefault();
+        show('Het formulier is nog niet gekoppeld. Mail je gegevens naar info@bigbandsurvival.nl.', false);
+        return;
+      }
+      event.preventDefault();
+      const button = form.querySelector('button[type="submit"]') as HTMLButtonElement | null;
+      if (button) button.disabled = true;
+      try {
+        const response = await fetch(form.action, {
+          method: 'POST',
+          body: new FormData(form),
+          headers: { Accept: 'application/json' },
+        });
+        if (response.ok) {
+          form.reset();
+          show('Bedankt voor je aanmelding! We nemen binnenkort contact met je op.', true);
+        } else {
+          show('Er ging iets mis bij het versturen. Probeer het opnieuw of mail ons.', false);
+        }
+      } catch {
+        show('Er ging iets mis bij het versturen. Probeer het opnieuw of mail ons.', false);
+      } finally {
+        if (button) button.disabled = false;
+      }
+    });
+  </script>
+
+</Layout>

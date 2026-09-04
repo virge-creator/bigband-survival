@@ -1,15 +1,16 @@
 ---
 import Layout from '../layouts/Layout.astro';
+import { SITE } from '../site.config';
 const baseRaw = import.meta.env.BASE_URL;
 const base = baseRaw.endsWith('/') ? baseRaw : baseRaw + '/';
 ---
 
-<Layout title="Contact" description="Neem contact op met Bigband Survival. We horen graag van je!">
+<Layout title="Contact" description="Neem contact op met Bigband Survival, het projectorkest in Midden-Limburg. Vragen over meespelen, workshops of samenwerking? We horen graag van je!">
   
   <!-- Hero -->
   <section class="hero py-20">
     <div class="max-w-6xl mx-auto px-6 relative z-10">
-      <h1 class="text-4xl sm:text-5xl font-bold text-white mb-6" style="font-family: 'Playfair Display', serif;">
+      <h1 class="text-4xl sm:text-5xl font-bold text-white mb-6 font-display" >
         Contact
       </h1>
       <p class="text-xl text-white/80 max-w-2xl">
@@ -26,7 +27,9 @@ const base = baseRaw.endsWith('/') ? baseRaw : baseRaw + '/';
         <!-- Contact Form -->
         <div>
           <h2 class="text-2xl font-bold mb-6">Stuur een bericht</h2>
-          <form class="space-y-6" action="https://formspree.io/f/YOUR_FORM_ID" method="POST">
+          <form class="space-y-6" action={`https://formspree.io/f/${SITE.forms.contact}`} method="POST">
+            <input type="hidden" name="_subject" value="Contactformulier Bigband Survival" />
+            <input type="text" name="_gotcha" tabindex="-1" autocomplete="off" class="hidden" aria-hidden="true" />
             <div>
               <label for="name" class="block text-sm font-medium mb-2">Naam *</label>
               <input 
@@ -118,8 +121,8 @@ const base = baseRaw.endsWith('/') ? baseRaw : baseRaw + '/';
               <h3 class="font-bold mb-2 flex items-center gap-2">
                 <span class="text-xl">📧</span> E-mail
               </h3>
-              <a href="mailto:info@bigbandsurvival.nl" class="text-brass hover:underline">
-                info@bigbandsurvival.nl
+              <a href={`mailto:${SITE.email}`} class="text-brass hover:underline">
+                {SITE.email}
               </a>
             </div>
             

@@ -322,3 +322,24 @@ blockquote {
     font-size: 1.5rem;
   }
 }
+
+/* Utilities */
+.font-display {
+  font-family: var(--font-display);
+}
+
+.skip-link {
+  position: absolute;
+  left: -999px;
+  top: 0;
+  z-index: 100;
+  padding: 0.5rem 1rem;
+  background: var(--color-brass);
+  color: var(--color-midnight);
+  font-weight: 600;
+  border-radius: 0 0 8px 0;
+}
+
+.skip-link:focus {
+  left: 0;
+}

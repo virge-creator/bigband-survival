@@ -1,43 +1,86 @@
-# Astro Starter Kit: Minimal
+# Bigband Survival
+
+Website van Bigband Survival, het projectorkest voor muziekschoolleerlingen en jonge
+muzikanten in Midden-Limburg. Gebouwd met [Astro](https://astro.build) en Tailwind CSS,
+gehost op GitHub Pages.
+
+## Ontwikkelen
 
 ```sh
-npm create astro@latest -- --template minimal
+npm install
+npm run dev       # http://localhost:4321/
+npm run build     # statische site in ./dist/
+npm run preview   # bekijk de build lokaal
 ```
 
-> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
+Node 22.12 of hoger is vereist.
 
-## 🚀 Project Structure
+## Configuratie
 
-Inside of your Astro project, you'll see the following folders and files:
+Alle site-instellingen staan in `src/site.config.ts`:
 
-```text
-/
-├── public/
-├── src/
-│   └── pages/
-│       └── index.astro
-└── package.json
+- `url`, `name`, `description`, adres en e-mailadres (gebruikt in meta tags en structured data).
+- `forms.contact` en `forms.aanmelden`: Formspree form-ID's. Maak een formulier op
+  https://formspree.io en vul hier het ID in (het deel na `/f/`). Zolang hier
+  `YOUR_FORM_ID` staat, versturen de formulieren niets.
+- `community.whatsapp` en `community.discord`: uitnodigingslinks. Zodra ze ingevuld
+  zijn, verschijnen ze op de aanmeldpagina.
+- `INSTRUMENT_GROUPS`: de instrumentenlijst van het aanmeldformulier.
+
+De publieke URL staat ook in `astro.config.mjs` (`site`), `public/robots.txt` en
+`public/CNAME` (het custom domain voor GitHub Pages). Houd deze vier gelijk.
+
+## Structuur
+
+```
+src/
+├── layouts/
+│   ├── Layout.astro      # navigatie, footer, SEO-head (canonical, Open Graph, JSON-LD)
+│   └── BlogPost.astro    # layout voor blogposts (article metadata)
+├── pages/
+│   ├── index.astro
+│   ├── over.astro
+│   ├── meespelen.astro
+│   ├── aanmelden.astro   # doorstart 2026 + aanmeldformulier
+│   ├── workshops.astro
+│   ├── contact.astro
+│   └── blog/             # index + markdown posts
+├── site.config.ts
+└── styles/global.css
+public/
+├── og-image.png          # social sharing afbeelding (1200x630)
+├── apple-touch-icon.png
+├── favicon.svg / favicon.ico
+└── robots.txt
 ```
 
-Astro looks for `.astro` or `.md` files in the `src/pages/` directory. Each page is exposed as a route based on its file name.
+## SEO
 
-There's nothing special about `src/components/`, but that's where we like to put any Astro/React/Vue/Svelte/Preact components.
+- Elke pagina krijgt via `Layout.astro` een canonical URL, Open Graph- en Twitter-tags,
+  en JSON-LD structured data (MusicGroup + WebSite; blogposts ook BlogPosting en
+  BreadcrumbList; de aanmeldpagina FAQPage en Event).
+- `@astrojs/sitemap` genereert `sitemap-index.xml` bij elke build; `robots.txt` verwijst ernaar.
+- Nieuwe blogposts: voeg een `.md`-bestand toe in `src/pages/blog/` met `title`,
+  `description`, `date` en `tags` in de frontmatter. Begin de tekst niet met een
+  `# kop`, de layout zet de titel al als H1.
 
-Any static assets, like images, can be placed in the `public/` directory.
+## Deploy
 
-## 🧞 Commands
+De site draait op GitHub Pages met custom domain https://bigbandsurvival.nl
+(www verwijst door naar de kale domeinnaam). Deployen:
 
-All commands are run from the root of the project, from a terminal:
+```sh
+npm run deploy
+```
 
-| Command                   | Action                                           |
-| :------------------------ | :----------------------------------------------- |
-| `npm install`             | Installs dependencies                            |
-| `npm run dev`             | Starts local dev server at `localhost:4321`      |
-| `npm run build`           | Build your production site to `./dist/`          |
-| `npm run preview`         | Preview your build locally, before deploying     |
-| `npm run astro ...`       | Run CLI commands like `astro add`, `astro check` |
-| `npm run astro -- --help` | Get help using the Astro CLI                     |
+Dit bouwt de site en pusht alleen de inhoud van `dist/` naar de `gh-pages` branch.
 
-## 👀 Want to learn more?
+DNS bij de registrar:
 
-Feel free to check [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
+| Type  | Naam | Waarde                   |
+|-------|------|--------------------------|
+| A     | @    | 185.199.108.153          |
+| A     | @    | 185.199.109.153          |
+| A     | @    | 185.199.110.153          |
+| A     | @    | 185.199.111.153          |
+| CNAME | www  | virge-creator.github.io  |

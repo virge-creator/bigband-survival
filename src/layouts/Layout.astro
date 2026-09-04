@@ -1,14 +1,84 @@
 ---
 import '../styles/global.css'
+import { SITE } from '../site.config';
 
 interface Props {
+  /** Page title. Shown as "<title> | Bigband Survival" unless `titleIsFull` is set. */
   title: string;
   description?: string;
+  /** Use the title exactly as given (no site-name suffix). */
+  titleIsFull?: boolean;
+  /** Open Graph type, e.g. "website" or "article". */
+  type?: 'website' | 'article';
+  /** Absolute or base-relative URL of the sharing image. */
+  image?: string;
+  /** ISO date for articles (adds article:published_time). */
+  publishedTime?: string;
+  /** Extra JSON-LD objects to append to the page. */
+  jsonLd?: Record<string, unknown>[];
+  /** Set to true to keep a page out of search engines. */
+  noindex?: boolean;
 }
 
-const { title, description = "Bigband Survival - Projectorkest voor muziekschoolleerlingen in Midden-Limburg" } = Astro.props;
+const {
+  title,
+  description = SITE.description,
+  titleIsFull = false,
+  type = 'website',
+  image,
+  publishedTime,
+  jsonLd = [],
+  noindex = false,
+} = Astro.props;
+
 const baseRaw = import.meta.env.BASE_URL;
 const base = baseRaw.endsWith('/') ? baseRaw : baseRaw + '/';
+
+const fullTitle = titleIsFull || title.includes(SITE.name) ? title : `${title} | ${SITE.name}`;
+const canonical = new URL(Astro.url.pathname, Astro.site).href;
+const ogImage = image
+  ? new URL(image, SITE.url).href
+  : new URL(SITE.ogImage, SITE.url).href;
+
+const organizationLd = {
+  '@context': 'https://schema.org',
+  '@type': 'MusicGroup',
+  name: SITE.name,
+  url: SITE.url,
+  email: SITE.email,
+  description: SITE.description,
+  genre: ['Jazz', 'Swing', 'Funk', 'Latin', 'Pop'],
+  image: ogImage,
+  address: {
+    '@type': 'PostalAddress',
+    streetAddress: SITE.address.street,
+    addressLocality: SITE.address.city,
+    addressRegion: SITE.address.region,
+    addressCountry: SITE.address.country,
+  },
+  areaServed: 'Midden-Limburg',
+};
+
+const websiteLd = {
+  '@context': 'https://schema.org',
+  '@type': 'WebSite',
+  name: SITE.name,
+  url: SITE.url,
+  inLanguage: 'nl-NL',
+};
+
+const structuredData = [organizationLd, websiteLd, ...jsonLd];
+
+const navLinks = [
+  { href: `${base}`, label: 'Home' },
+  { href: `${base}over/`, label: 'Over Ons' },
+  { href: `${base}meespelen/`, label: 'Meespelen' },
+  { href: `${base}workshops/`, label: 'Workshops' },
+  { href: `${base}blog/`, label: 'Blog' },
+  { href: `${base}contact/`, label: 'Contact' },
+];
+const currentPath = Astro.url.pathname;
+const isActive = (href: string) => currentPath === href;
 ---
 
 <!doctype html>
@@ -16,86 +86,135 @@ const base = baseRaw.endsWith('/') ? baseRaw : baseRaw + '/';
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{fullTitle}</title>
     <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+    {noindex ? <meta name="robots" content="noindex, nofollow" /> : <meta name="robots" content="index, follow, max-image-preview:large" />}
+    <meta name="theme-color" content="#1a1a2e" />
+    <meta name="generator" content={Astro.generator} />
+    <link rel="sitemap" href={`${base}sitemap-index.xml`} />
+
+    <!-- Open Graph -->
+    <meta property="og:type" content={type} />
+    <meta property="og:site_name" content={SITE.name} />
+    <meta property="og:locale" content={SITE.locale} />
+    <meta property="og:title" content={fullTitle} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={ogImage} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content={`${SITE.name}, projectorkest in Midden-Limburg`} />
+    {publishedTime && <meta property="article:published_time" content={publishedTime} />}
+
+    <!-- Twitter / X -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={fullTitle} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogImage} />
+
+    <!-- Icons -->
     <link rel="icon" type="image/svg+xml" href={`${base}favicon.svg`} />
+    <link rel="icon" href={`${base}favicon.ico`} sizes="32x32" />
+    <link rel="apple-touch-icon" href={`${base}apple-touch-icon.png`} />
+
+    <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@600;700;800&display=swap" rel="stylesheet">
-    <title>{title} | Bigband Survival</title>
+
+    <!-- Structured data -->
+    <script type="application/ld+json" set:html={JSON.stringify(structuredData)} />
   </head>
   <body class="flex flex-col min-h-screen">
+    <a href="#main" class="skip-link">Naar de inhoud</a>
+
     <!-- Navigation -->
     <header class="bg-white/95 backdrop-blur-sm sticky top-0 z-50 border-b border-gray-100">
-      <nav class="max-w-6xl mx-auto px-4 sm:px-6 py-4">
+      <nav class="max-w-6xl mx-auto px-4 sm:px-6 py-4" aria-label="Hoofdnavigatie">
         <div class="flex items-center justify-between">
-          <a href={`${base}`} class="flex items-center gap-3">
-            <span class="text-2xl">🎺</span>
-            <span class="text-xl font-bold text-midnight" style="font-family: 'Playfair Display', serif;">Bigband Survival</span>
+          <a href={`${base}`} class="flex items-center gap-3" aria-label="Bigband Survival, home">
+            <span class="text-2xl" aria-hidden="true">🎺</span>
+            <span class="text-xl font-bold text-midnight font-display">Bigband Survival</span>
           </a>
           <div class="hidden md:flex items-center gap-8 text-sm font-medium">
-            <a href={`${base}`} class="text-charcoal hover:text-brass transition-colors">Home</a>
-            <a href={`${base}over/`} class="text-charcoal hover:text-brass transition-colors">Over Ons</a>
-            <a href={`${base}meespelen/`} class="text-charcoal hover:text-brass transition-colors">Meespelen</a>
-            <a href={`${base}workshops/`} class="text-charcoal hover:text-brass transition-colors">Workshops</a>
-            <a href={`${base}blog/`} class="text-charcoal hover:text-brass transition-colors">Blog</a>
-            <a href={`${base}contact/`} class="btn-primary text-sm !py-2 !px-4">Contact</a>
+            {navLinks.map((link) => (
+              <a
+                href={link.href}
+                class:list={['hover:text-brass transition-colors', isActive(link.href) ? 'text-brass' : 'text-charcoal']}
+                aria-current={isActive(link.href) ? 'page' : undefined}
+              >{link.label}</a>
+            ))}
+            <a href={`${base}aanmelden/`} class="btn-primary text-sm !py-2 !px-4">Doe mee in 2026</a>
           </div>
           <!-- Mobile menu button -->
-          <button class="md:hidden text-2xl" id="mobile-menu-btn">☰</button>
+          <button
+            class="md:hidden text-2xl"
+            id="mobile-menu-btn"
+            aria-label="Menu openen"
+            aria-expanded="false"
+            aria-controls="mobile-menu"
+          >☰</button>
         </div>
         <!-- Mobile menu -->
         <div class="md:hidden hidden pt-4 pb-2" id="mobile-menu">
           <div class="flex flex-col gap-4">
-            <a href={`${base}`} class="text-charcoal hover:text-brass">Home</a>
-            <a href={`${base}over/`} class="text-charcoal hover:text-brass">Over Ons</a>
-            <a href={`${base}meespelen/`} class="text-charcoal hover:text-brass">Meespelen</a>
-            <a href={`${base}workshops/`} class="text-charcoal hover:text-brass">Workshops</a>
-            <a href={`${base}blog/`} class="text-charcoal hover:text-brass">Blog</a>
-            <a href={`${base}contact/`} class="btn-primary text-center">Contact</a>
+            {navLinks.map((link) => (
+              <a href={link.href} class:list={['hover:text-brass', isActive(link.href) ? 'text-brass' : 'text-charcoal']} aria-current={isActive(link.href) ? 'page' : undefined}>{link.label}</a>
+            ))}
+            <a href={`${base}aanmelden/`} class="btn-primary text-center">Doe mee in 2026</a>
           </div>
         </div>
       </nav>
     </header>
-    
-    <main class="flex-grow">
+
+    <main id="main" class="flex-grow">
       <slot />
     </main>
-    
+
     <!-- Footer -->
     <footer class="py-12 mt-auto">
       <div class="max-w-6xl mx-auto px-6">
         <div class="grid md:grid-cols-3 gap-8 mb-8">
           <div>
-            <h3 class="text-white font-bold text-lg mb-4" style="font-family: 'Playfair Display', serif;">Bigband Survival</h3>
-            <p class="text-sm opacity-80">Projectorkest voor muziekschoolleerlingen in Midden-Limburg. Ontdek de magie van bigband muziek!</p>
+            <h3 class="text-white font-bold text-lg mb-4 font-display">Bigband Survival</h3>
+            <p class="text-sm opacity-80">Projectorkest voor muziekschoolleerlingen en jonge muzikanten in Midden-Limburg. Ontdek de magie van bigband muziek!</p>
           </div>
           <div>
             <h4 class="text-white font-semibold mb-4">Navigatie</h4>
             <ul class="space-y-2 text-sm">
               <li><a href={`${base}over/`}>Over Ons</a></li>
               <li><a href={`${base}meespelen/`}>Meespelen</a></li>
+              <li><a href={`${base}aanmelden/`}>Doorstart 2026: aanmelden</a></li>
               <li><a href={`${base}workshops/`}>Workshops</a></li>
               <li><a href={`${base}blog/`}>Blog</a></li>
+              <li><a href={`${base}contact/`}>Contact</a></li>
             </ul>
           </div>
           <div>
             <h4 class="text-white font-semibold mb-4">Contact</h4>
-            <ul class="space-y-2 text-sm">
-              <li>📍 Julianastraat 63</li>
-              <li>Stramproy</li>
-              <li>📧 <a href="mailto:info@bigbandsurvival.nl">info@bigbandsurvival.nl</a></li>
-            </ul>
+            <address class="not-italic">
+              <ul class="space-y-2 text-sm">
+                <li>📍 {SITE.address.street}</li>
+                <li>{SITE.address.city}</li>
+                <li>📧 <a href={`mailto:${SITE.email}`}>{SITE.email}</a></li>
+              </ul>
+            </address>
           </div>
         </div>
         <div class="border-t border-white/20 pt-8 text-center text-sm opacity-60">
-          <p>© 2026 Bigband Survival — Met passie voor muziek 🎵</p>
+          <p>© {new Date().getFullYear()} Bigband Survival. Met passie voor muziek 🎵</p>
         </div>
       </div>
     </footer>
 
     <script>
-      document.getElementById('mobile-menu-btn')?.addEventListener('click', () => {
-        document.getElementById('mobile-menu')?.classList.toggle('hidden');
+      const btn = document.getElementById('mobile-menu-btn');
+      const menu = document.getElementById('mobile-menu');
+      btn?.addEventListener('click', () => {
+        const open = menu?.classList.toggle('hidden') === false;
+        btn.setAttribute('aria-expanded', String(open));
+        btn.setAttribute('aria-label', open ? 'Menu sluiten' : 'Menu openen');
       });
     </script>
   </body>

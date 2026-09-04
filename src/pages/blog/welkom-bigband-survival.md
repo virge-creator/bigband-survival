@@ -6,7 +6,7 @@ date: 2026-03-25
 tags: ["Bigband Survival", "Nieuws"]
 ---
 
-# Welkom bij Bigband Survival!
+
 
 Na maanden van voorbereiding is het zover: Bigband Survival gaat officieel van start! 🎺
 
@@ -20,10 +20,10 @@ Te vaak zien we getalenteerde leerlingen die braaf hun lessen volgen, thuis oefe
 
 Bij Bigband Survival draait alles om:
 
-- **Samenspelen** — Ervaren hoe het is om onderdeel te zijn van een groter geheel
-- **Improviseren** — Leren om los te laten en je eigen stem te vinden
-- **Optreden** — Elk project eindigt met een echt concert
-- **Groeien** — Als muzikant én als mens
+- **Samenspelen**: ervaren hoe het is om onderdeel te zijn van een groter geheel
+- **Improviseren**: leren om los te laten en je eigen stem te vinden
+- **Optreden**: elk project eindigt met een echt concert
+- **Groeien**: als muzikant én als mens
 
 ## Onze eerste projecten
 

@@ -4,19 +4,26 @@ const baseRaw = import.meta.env.BASE_URL;
 const base = baseRaw.endsWith('/') ? baseRaw : baseRaw + '/';
 ---
 
-<Layout title="Home" description="Bigband Survival - Het projectorkest waar muziekschoolleerlingen de bigband in al zijn vormen ontdekken. Meespelen, improviseren, groeien.">
+<Layout
+  title="Bigband Survival | Projectorkest voor jonge muzikanten in Midden-Limburg"
+  titleIsFull
+  description="Bigband Survival is het projectorkest waar muziekschoolleerlingen en jonge muzikanten uit Midden-Limburg de bigband ontdekken. Swing, funk, latin en pop. Doorstart in 2026: meld je aan!"
+>
   
   <!-- Hero Section -->
   <section class="hero min-h-[80vh] flex items-center relative">
     <div class="max-w-6xl mx-auto px-6 py-20 relative z-10">
       <div class="max-w-3xl">
+        <a href={`${base}aanmelden/`} class="inline-flex items-center gap-2 rounded-full bg-white/10 border border-brass/40 px-4 py-1.5 text-sm text-brass-light hover:bg-white/20 transition-colors mb-6">
+          <span aria-hidden="true">✨</span> Doorstart in Q3 2026: meld je aan <span aria-hidden="true">→</span>
+        </a>
         <p class="text-brass-light font-medium tracking-wider uppercase mb-4 text-sm">🎷 Midden-Limburg</p>
-        <h1 class="text-4xl sm:text-5xl md:text-6xl font-bold text-white mb-6 leading-tight" style="font-family: 'Playfair Display', serif;">
+        <h1 class="text-4xl sm:text-5xl md:text-6xl font-bold text-white mb-6 leading-tight font-display" >
           Ontdek de <span class="text-brass">bigband</span> in jezelf
         </h1>
         <p class="text-xl text-white/80 mb-8 leading-relaxed">
           Bigband Survival is hét projectorkest voor muziekschoolleerlingen die willen groeien. 
-          Van eerste noten tot gewaagde solo's — samen maken we muziek die je voelt.
+          Van eerste noten tot gewaagde solo's: samen maken we muziek die je voelt.
         </p>
         <div class="flex flex-col sm:flex-row gap-4">
           <a href={`${base}meespelen/`} class="btn-primary text-center">
@@ -58,7 +65,7 @@ const base = baseRaw.endsWith('/') ? baseRaw : baseRaw + '/';
           <h3 class="text-xl font-bold mb-3">Meespelen</h3>
           <p class="text-gray-600">
             Sluit je aan bij ons projectorkest en speel mee met een echte bigband. 
-            Van swing tot funk, van latin tot pop — we spelen het allemaal.
+            Van swing tot funk, van latin tot pop. We spelen het allemaal.
           </p>
         </div>
         
@@ -86,11 +93,11 @@ const base = baseRaw.endsWith('/') ? baseRaw : baseRaw + '/';
   <!-- Quote Section -->
   <section class="section-cream py-20">
     <div class="max-w-4xl mx-auto px-6 text-center">
-      <blockquote class="text-2xl sm:text-3xl font-medium text-midnight border-none text-center" style="font-family: 'Playfair Display', serif;">
-        "Muziek maken in een bigband is als een gesprek voeren met twintig mensen tegelijk — 
+      <blockquote class="text-2xl sm:text-3xl font-medium text-midnight border-none text-center font-display" >
+        "Muziek maken in een bigband is als een gesprek voeren met twintig mensen tegelijk,
         en iedereen begrijpt elkaar zonder woorden."
       </blockquote>
-      <p class="mt-6 text-gray-600">— Een deelnemer</p>
+      <p class="mt-6 text-gray-600">Een deelnemer</p>
     </div>
   </section>
 
@@ -130,7 +137,7 @@ const base = baseRaw.endsWith('/') ? baseRaw : baseRaw + '/';
           <p class="text-5xl font-bold text-brass mb-2">12-25</p>
           <p class="text-gray-600">jaar</p>
           <div class="border-t border-gray-200 my-6"></div>
-          <p class="text-gray-600">Alle niveaus welkom — van beginner tot gevorderd</p>
+          <p class="text-gray-600">Alle niveaus welkom, van beginner tot gevorderd</p>
         </div>
       </div>
     </div>
