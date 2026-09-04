@@ -145,7 +145,7 @@ const isActive = (href: string) => currentPath === href;
                 aria-current={isActive(link.href) ? 'page' : undefined}
               >{link.label}</a>
             ))}
-            <a href={`${base}aanmelden/`} class="btn-primary text-sm !py-2 !px-4">Doe mee in 2026</a>
+            <a href={`${base}aanmelden/`} class="btn-primary text-sm !py-2 !px-4">Doe mee in 2027</a>
           </div>
           <!-- Mobile menu button -->
           <button
@@ -162,7 +162,7 @@ const isActive = (href: string) => currentPath === href;
             {navLinks.map((link) => (
               <a href={link.href} class:list={['hover:text-brass', isActive(link.href) ? 'text-brass' : 'text-charcoal']} aria-current={isActive(link.href) ? 'page' : undefined}>{link.label}</a>
             ))}
-            <a href={`${base}aanmelden/`} class="btn-primary text-center">Doe mee in 2026</a>
+            <a href={`${base}aanmelden/`} class="btn-primary text-center">Doe mee in 2027</a>
           </div>
         </div>
       </nav>
