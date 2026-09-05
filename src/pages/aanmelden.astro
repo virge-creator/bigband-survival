@@ -50,11 +50,9 @@ const eventLd = {
   eventAttendanceMode: 'https://schema.org/OfflineEventAttendanceMode',
   location: {
     '@type': 'Place',
-    name: 'Repetitielocatie Bigband Survival',
+    name: 'Midden-Limburg (locatie nog te bepalen)',
     address: {
       '@type': 'PostalAddress',
-      streetAddress: SITE.address.street,
-      addressLocality: SITE.address.city,
       addressRegion: SITE.address.region,
       addressCountry: SITE.address.country,
     },
@@ -235,16 +233,14 @@ const formAction = `https://formspree.io/f/${SITE.forms.aanmelden}`;
           <div class="bg-white rounded-xl p-6 card">
             <h3 class="font-bold mb-2 flex items-center gap-2"><span class="text-xl">📅</span> Wanneer?</h3>
             <p class="text-gray-600">
-              Doel: draaien in het derde kwartaal van 2027. Repetities zijn zoals altijd op zaterdagochtend
-              van 10:00 tot 12:30.
+              Doel: draaien in het derde kwartaal van 2027. Repetitietijd en -dag nog te bepalen.
             </p>
           </div>
 
           <div class="bg-white rounded-xl p-6 card">
             <h3 class="font-bold mb-2 flex items-center gap-2"><span class="text-xl">📍</span> Waar?</h3>
             <p class="text-gray-600">
-              {SITE.address.street}<br>
-              {SITE.address.city}
+              Nog te bepalen
             </p>
           </div>
 
