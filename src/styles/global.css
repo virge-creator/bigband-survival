@@ -343,3 +343,8 @@ blockquote {
 .skip-link:focus {
   left: 0;
 }
+
+/* Headings inside blocks with white text (dark cards) must stay white */
+.text-white :is(h1, h2, h3, h4) {
+  color: inherit;
+}
