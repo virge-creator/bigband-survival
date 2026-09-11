@@ -10,7 +10,7 @@ export const SITE = {
   description:
     'Bigband Survival is het projectorkest voor muziekschoolleerlingen en jonge muzikanten in Midden-Limburg. Speel mee in een echte bigband: swing, funk, latin en pop.',
   locale: 'nl_NL',
-  email: 'info@bigbandsurvival.nl',
+  email: 'bigbandsurvival@gmail.com',
   address: {
     street: 'Julianastraat 63',
     city: 'Stramproy',
@@ -24,8 +24,8 @@ export const SITE = {
    * ID (the part after /f/) here. Until then the forms will not deliver.
    */
   forms: {
-    contact: 'YOUR_FORM_ID',
-    aanmelden: 'YOUR_FORM_ID',
+    contact: 'xvkoyybr',
+    aanmelden: 'xvkoyybr',
   },
   /** Community links. Fill in once the WhatsApp group and Discord server exist. */
   community: {
