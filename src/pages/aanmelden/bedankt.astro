@@ -1,0 +1,86 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { SITE } from '../../site.config';
+
+const baseRaw = import.meta.env.BASE_URL;
+const base = baseRaw.endsWith('/') ? baseRaw : baseRaw + '/';
+
+const title = 'Bedankt voor je aanmelding';
+const description = 'We hebben je aanmelding voor de doorstart van Bigband Survival ontvangen en nemen binnenkort contact met je op.';
+---
+
+<Layout title={title} description={description} noindex={true}>
+
+  <!-- Hero -->
+  <section class="hero py-20">
+    <div class="max-w-6xl mx-auto px-6 relative z-10">
+      <p class="text-brass-light font-medium tracking-wider uppercase mb-4 text-sm">🎷 Aanmelding ontvangen</p>
+      <h1 class="text-4xl sm:text-5xl font-bold text-white mb-6 font-display">
+        Bedankt voor je aanmelding!
+      </h1>
+      <p class="text-xl text-white/80 max-w-2xl">
+        Je gegevens zijn binnen. We nemen <strong class="text-white">binnenkort contact</strong> met je op
+        over de doorstart in het derde kwartaal van 2027.
+      </p>
+    </div>
+  </section>
+
+  <!-- Wat nu -->
+  <section class="py-20">
+    <div class="max-w-6xl mx-auto px-6">
+      <div class="text-center mb-16">
+        <h2 class="text-3xl sm:text-4xl font-bold mb-4">Wat gebeurt er nu?</h2>
+        <p class="text-lg text-gray-600 max-w-2xl mx-auto">
+          Drie stappen, dan spelen we weer samen.
+        </p>
+      </div>
+
+      <div class="grid md:grid-cols-3 gap-8">
+        <div class="card p-8">
+          <div class="w-12 h-12 rounded-full bg-brass text-white flex items-center justify-center text-xl font-bold mb-4">1</div>
+          <h3 class="text-xl font-bold mb-3">We nemen contact op</h3>
+          <p class="text-gray-600">
+            Je hoort van ons via e-mail of telefoon. Heb je in de tussentijd een vraag? Mail naar
+            <a href={`mailto:${SITE.email}`} class="text-brass hover:underline">{SITE.email}</a>.
+          </p>
+        </div>
+
+        <div class="card p-8">
+          <div class="w-12 h-12 rounded-full bg-coral text-white flex items-center justify-center text-xl font-bold mb-4">2</div>
+          <h3 class="text-xl font-bold mb-3">WhatsApp en Discord</h3>
+          <p class="text-gray-600">
+            {SITE.community.whatsapp || SITE.community.discord ? (
+              <>
+                Sluit je alvast aan:
+                {SITE.community.whatsapp && (
+                  <a href={SITE.community.whatsapp} class="text-brass hover:underline" rel="noopener" target="_blank">WhatsApp-groep</a>
+                )}
+                {SITE.community.whatsapp && SITE.community.discord && ' en '}
+                {SITE.community.discord && (
+                  <a href={SITE.community.discord} class="text-brass hover:underline" rel="noopener" target="_blank">Discord-server</a>
+                )}.
+              </>
+            ) : (
+              'Je krijgt een uitnodiging voor de WhatsApp-groep en de Discord-server zodra die er zijn.'
+            )}
+          </p>
+        </div>
+
+        <div class="card p-8">
+          <div class="w-12 h-12 rounded-full bg-midnight text-white flex items-center justify-center text-xl font-bold mb-4">3</div>
+          <h3 class="text-xl font-bold mb-3">Eerste repetitie</h3>
+          <p class="text-gray-600">
+            Zodra de bezetting rond is, plannen we de eerste repetitie. Doel: in het derde kwartaal
+            van 2027 weer samen spelen.
+          </p>
+        </div>
+      </div>
+
+      <div class="flex flex-wrap gap-4 justify-center mt-16">
+        <a href={base} class="btn-primary">Terug naar de homepage</a>
+        <a href={`${base}meespelen/`} class="btn-secondary">Lees meer over meespelen</a>
+      </div>
+    </div>
+  </section>
+
+</Layout>

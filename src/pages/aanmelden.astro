@@ -140,6 +140,7 @@ const formAction = `https://formspree.io/f/${SITE.forms.aanmelden}`;
             method="POST"
             data-form-configured={SITE.forms.aanmelden !== 'YOUR_FORM_ID' ? 'true' : 'false'}
             data-contact-email={SITE.email}
+            data-success-url={`${base}aanmelden/bedankt/`}
           >
             <input type="hidden" name="_subject" value="Aanmelding doorstart Bigband Survival 2027" />
             <input type="text" name="_gotcha" tabindex="-1" autocomplete="off" class="hidden" aria-hidden="true" />
@@ -353,6 +354,11 @@ const formAction = `https://formspree.io/f/${SITE.forms.aanmelden}`;
           headers: { Accept: 'application/json' },
         });
         if (response.ok) {
+          const successUrl = form.dataset.successUrl;
+          if (successUrl) {
+            window.location.assign(successUrl);
+            return;
+          }
           form.reset();
           show('Bedankt voor je aanmelding! We nemen binnenkort contact met je op.', true);
         } else {
