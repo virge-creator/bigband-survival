@@ -25,7 +25,7 @@ export const SITE = {
    */
   forms: {
     contact: 'xvkoyybr',
-    aanmelden: 'xvkoyybr',
+    aanmelden: 'xwlkzznq',
   },
   /** Community links. Fill in once the WhatsApp group and Discord server exist. */
   community: {
