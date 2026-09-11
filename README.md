@@ -67,13 +67,19 @@ public/
 ## Deploy
 
 De site draait op GitHub Pages met custom domain https://bigbandsurvival.nl
-(www verwijst door naar de kale domeinnaam). Deployen:
+(www verwijst door naar de kale domeinnaam).
+
+Elke push naar `main` wordt automatisch gebouwd en gepubliceerd door de GitHub
+Actions-workflow in `.github/workflows/deploy.yml`. Die zet alleen de inhoud van
+`dist/` op de `gh-pages` branch; GitHub Pages serveert die branch. De voortgang is
+te volgen onder het tabblad Actions van de repo. De workflow is ook handmatig te
+starten via "Run workflow".
+
+Handmatig deployen vanaf je eigen machine kan nog steeds:
 
 ```sh
 npm run deploy
 ```
-
-Dit bouwt de site en pusht alleen de inhoud van `dist/` naar de `gh-pages` branch.
 
 DNS bij de registrar:
 
