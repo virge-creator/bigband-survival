@@ -1,0 +1,56 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { SITE } from '../../site.config';
+
+const baseRaw = import.meta.env.BASE_URL;
+const base = baseRaw.endsWith('/') ? baseRaw : baseRaw + '/';
+
+const title = 'Bedankt voor je bericht';
+const description = 'We hebben je bericht aan Bigband Survival ontvangen en reageren zo snel mogelijk.';
+---
+
+<Layout title={title} description={description} noindex={true}>
+
+  <!-- Hero -->
+  <section class="hero py-20">
+    <div class="max-w-6xl mx-auto px-6 relative z-10">
+      <p class="text-brass-light font-medium tracking-wider uppercase mb-4 text-sm">🎺 Bericht ontvangen</p>
+      <h1 class="text-4xl sm:text-5xl font-bold text-white mb-6 font-display">
+        Bedankt voor je bericht!
+      </h1>
+      <p class="text-xl text-white/80 max-w-2xl">
+        Je bericht is binnen. We reageren <strong class="text-white">zo snel mogelijk</strong>, meestal
+        binnen een paar dagen.
+      </p>
+    </div>
+  </section>
+
+  <section class="py-20">
+    <div class="max-w-6xl mx-auto px-6">
+      <div class="grid md:grid-cols-2 gap-8">
+        <div class="card p-8">
+          <h2 class="text-xl font-bold mb-3">Wil je meespelen?</h2>
+          <p class="text-gray-600 mb-6">
+            Bigband Survival gaat in het derde kwartaal van 2027 weer van start. Meld je aan, dan
+            weten we zeker dat we je gegevens en instrument hebben.
+          </p>
+          <a href={`${base}aanmelden/`} class="btn-primary inline-block">Aanmelden voor de doorstart</a>
+        </div>
+
+        <div class="p-8 bg-midnight text-white rounded-xl">
+          <h2 class="text-xl font-bold mb-3">Nog iets vergeten?</h2>
+          <p class="text-white/80">
+            Stuur een aanvulling naar
+            <a href={`mailto:${SITE.email}`} class="text-brass-light hover:underline">{SITE.email}</a>.
+          </p>
+        </div>
+      </div>
+
+      <div class="flex flex-wrap gap-4 justify-center mt-16">
+        <a href={base} class="btn-primary">Terug naar de homepage</a>
+        <a href={`${base}contact/`} class="btn-secondary">Terug naar contact</a>
+      </div>
+    </div>
+  </section>
+
+</Layout>

@@ -9,8 +9,8 @@ export default defineConfig({
   trailingSlash: 'always',
   integrations: [
     sitemap({
-      // De bedankpagina na aanmelden hoort niet in zoekmachines.
-      filter: (page) => !page.endsWith('/aanmelden/bedankt/'),
+      // Bedankpagina's na een formulier horen niet in zoekmachines.
+      filter: (page) => !page.endsWith('/bedankt/'),
       changefreq: 'weekly',
       priority: 0.7,
       lastmod: new Date(),

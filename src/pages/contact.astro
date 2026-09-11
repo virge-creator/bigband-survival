@@ -27,7 +27,15 @@ const base = baseRaw.endsWith('/') ? baseRaw : baseRaw + '/';
         <!-- Contact Form -->
         <div>
           <h2 class="text-2xl font-bold mb-6">Stuur een bericht</h2>
-          <form class="space-y-6" action={`https://formspree.io/f/${SITE.forms.contact}`} method="POST">
+          <form
+            id="contact-form"
+            class="space-y-6"
+            action={`https://formspree.io/f/${SITE.forms.contact}`}
+            method="POST"
+            data-form-configured={SITE.forms.contact !== 'YOUR_FORM_ID' ? 'true' : 'false'}
+            data-contact-email={SITE.email}
+            data-success-url={`${base}contact/bedankt/`}
+          >
             <input type="hidden" name="_subject" value="Contactformulier Bigband Survival" />
             <input type="text" name="_gotcha" tabindex="-1" autocomplete="off" class="hidden" aria-hidden="true" />
             <div>
@@ -109,6 +117,7 @@ const base = baseRaw.endsWith('/') ? baseRaw : baseRaw + '/';
             <button type="submit" class="btn-primary w-full">
               Verstuur bericht →
             </button>
+            <p id="contact-form-status" class="text-sm text-gray-600 hidden" role="status" aria-live="polite"></p>
           </form>
         </div>
         
@@ -191,5 +200,50 @@ const base = baseRaw.endsWith('/') ? baseRaw : baseRaw + '/';
       </div>
     </div>
   </section>
+
+  <script>
+    const form = document.getElementById('contact-form') as HTMLFormElement | null;
+    const status = document.getElementById('contact-form-status');
+
+    function show(message: string, ok: boolean) {
+      if (!status) return;
+      status.textContent = message;
+      status.classList.remove('hidden', 'text-green-700', 'text-red-700');
+      status.classList.add(ok ? 'text-green-700' : 'text-red-700');
+    }
+
+    form?.addEventListener('submit', async (event) => {
+      if (form.dataset.formConfigured !== 'true') {
+        event.preventDefault();
+        show(`Het formulier is nog niet gekoppeld. Mail je vraag naar ${form.dataset.contactEmail}.`, false);
+        return;
+      }
+      event.preventDefault();
+      const button = form.querySelector('button[type="submit"]') as HTMLButtonElement | null;
+      if (button) button.disabled = true;
+      try {
+        const response = await fetch(form.action, {
+          method: 'POST',
+          body: new FormData(form),
+          headers: { Accept: 'application/json' },
+        });
+        if (response.ok) {
+          const successUrl = form.dataset.successUrl;
+          if (successUrl) {
+            window.location.assign(successUrl);
+            return;
+          }
+          form.reset();
+          show('Bedankt voor je bericht! We reageren zo snel mogelijk.', true);
+        } else {
+          show('Er ging iets mis bij het versturen. Probeer het opnieuw of mail ons.', false);
+        }
+      } catch {
+        show('Er ging iets mis bij het versturen. Probeer het opnieuw of mail ons.', false);
+      } finally {
+        if (button) button.disabled = false;
+      }
+    });
+  </script>
 
 </Layout>
